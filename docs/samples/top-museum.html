@@ -1,0 +1,90 @@
+<!-- wp:html -->
+<style>
+/*
+ * 美術館サイトの「本日は」表示を真似た、今日の予定のテンプレート用 CSS。
+ * 予定名を状態のラベル、説明を開館時間として登録する。
+ * ラベルの色は、カレンダープラグインで予定に付けた「イベントラベルの色」（{event_color}）をそのまま使う。
+ * 色の値は、カレンダーページ（/calendar/）に出るラベルの表示から採った。
+ */
+.today-status-wrap {
+	display: flex;
+	justify-content: flex-end;
+	padding: 1rem 0;
+}
+
+.today-status {
+	display: grid;
+	grid-template-columns: auto auto;
+	row-gap: 0.9rem;
+	column-gap: 1.25rem;
+	align-items: center;
+	padding: 1.25rem 1.5rem;
+	border-radius: 4px;
+	background: #f2f2f2;
+	color: inherit;
+	font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+}
+
+.today-status__key {
+	font-size: 0.95rem;
+	letter-spacing: 0.04em;
+}
+
+.today-status__labels {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.today-status__label {
+	display: inline-block;
+	padding: 0.3rem 0.85rem;
+	border: 1px solid #8a8a8a;
+	border-radius: 4px;
+	background: #fff;
+	color: #202020;
+	font-size: 0.85rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	white-space: nowrap;
+}
+
+.today-status__label--red {
+	border-color: #e26b6b;
+	background: #ffebee;
+}
+
+.today-status__label--blue {
+	border-color: #4cb0de;
+	background: #e3f2fd;
+}
+
+.today-status__label--green {
+	border-color: #61cb82;
+	background: #e8f5e9;
+}
+
+.today-status__hours {
+	display: flex;
+	gap: 0.75rem;
+	font-size: 1.9rem;
+	font-weight: 300;
+	letter-spacing: 0.04em;
+	line-height: 1;
+	font-variant-numeric: tabular-nums;
+}
+
+.today-status__time:empty {
+	display: none;
+}
+</style>
+[today_schedule hash="pocevents" limit="3"]
+<div class="today-status-wrap">
+<div class="today-status">
+<span class="today-status__key">本日は</span>
+<span class="today-status__labels">{events}<span class="today-status__label today-status__label--{event_color}">{event_name}</span>{/events}{no_events}<span class="today-status__label">本日の情報はありません</span>{/no_events}</span>
+{has_events}<span class="today-status__key">開館時間</span>
+<span class="today-status__hours">{events}<span class="today-status__time">{event_description}</span>{/events}</span>{/has_events}
+</div>
+</div>
+[/today_schedule]
+<!-- /wp:html -->
