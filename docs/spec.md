@@ -1,6 +1,6 @@
-# wp-today-schedule-plugin 表示仕様
+# wp-calendar-today-plugin 表示仕様
 
-`wp-today-schedule-plugin` は、カレンダープラグイン「Event Calendar Maker（無料版）」（以下、カレンダープラグイン）に登録した今日の予定を、ショートコード `[today_schedule]` でバッジとして表示する。
+`wp-calendar-today-plugin` は、カレンダープラグイン「Event Calendar Maker（無料版）」（以下、カレンダープラグイン）に登録した今日の予定を、ショートコード `[today_schedule]` でバッジとして表示する。
 この文書は、前身の PoC（`top-schedule`）の表示仕様から今日の予定に関わる部分だけを引き継ぎ、書き直したものである。
 PoC から変えた項目には、その理由を書く。
 
@@ -57,26 +57,26 @@ PoC では既定のバッジを固定の HTML として別に組み立ててい�
 HTML は次の形である。
 
 ```html
-<div class="wp-today-schedule">
-  <a class="wp-today-schedule__badge" href="/calendar/">
-    <time class="wp-today-schedule__date" datetime="2026-09-27">9/27<span class="wp-today-schedule__dow">（日）</span></time>
-    <ul class="wp-today-schedule__events">
-      <li class="wp-today-schedule__event"><span class="wp-today-schedule__label wp-today-schedule__label--blue">開館日</span><span class="wp-today-schedule__desc">10:00 – 18:00</span></li>
-      <li class="wp-today-schedule__event"><span class="wp-today-schedule__label wp-today-schedule__label--green">庭園のみ開館</span><span class="wp-today-schedule__desc"></span></li>
+<div class="wp-calendar-today">
+  <a class="wp-calendar-today__badge" href="/calendar/">
+    <time class="wp-calendar-today__date" datetime="2026-09-27">9/27<span class="wp-calendar-today__dow">（日）</span></time>
+    <ul class="wp-calendar-today__events">
+      <li class="wp-calendar-today__event"><span class="wp-calendar-today__label wp-calendar-today__label--blue">開館日</span><span class="wp-calendar-today__desc">10:00 – 18:00</span></li>
+      <li class="wp-calendar-today__event"><span class="wp-calendar-today__label wp-calendar-today__label--green">庭園のみ開館</span><span class="wp-calendar-today__desc"></span></li>
     </ul>
-    <span class="wp-today-schedule__more">ほか 1 件</span>
+    <span class="wp-calendar-today__more">ほか 1 件</span>
   </a>
 </div>
 ```
 
-- **外枠**：バッジは中身の幅に合わせたインライン要素にし、外側をブロック要素（`wp-today-schedule`）で包む。ブロックテーマの本文は、直下のブロック要素を本文の列に揃えるが、インライン要素は揃えないためである。
-- **`link` が空**：`<a>` の代わりに `<div class="wp-today-schedule__badge">` で出力する。組み込みのテンプレートは `link` の有無で外枠だけが違う 2 つの文字列であり、`href` の値はテンプレートを選ぶときに `esc_url()` を通して埋める。
+- **外枠**：バッジは中身の幅に合わせたインライン要素にし、外側をブロック要素（`wp-calendar-today`）で包む。ブロックテーマの本文は、直下のブロック要素を本文の列に揃えるが、インライン要素は揃えないためである。
+- **`link` が空**：`<a>` の代わりに `<div class="wp-calendar-today__badge">` で出力する。組み込みのテンプレートは `link` の有無で外枠だけが違う 2 つの文字列であり、`href` の値はテンプレートを選ぶときに `esc_url()` を通して埋める。
 - **予定が 0 件**：`<ul>` を出力しない。
 - **「ほか N 件」**：超えた分があるときだけ出力する。
 
 PoC からの変更点は 4 つある。
 見出し「本日の予定」は出さない。日付と予定が並べば何の表示かは分かり、見出しの分だけバッジが縦に長くなるためである。
-クラス名の接頭辞を `top-schedule-badge` からプラグイン名に合わせた `wp-today-schedule` に変えた。
+クラス名の接頭辞を `top-schedule-badge` からプラグイン名に合わせた `wp-calendar-today` に変えた。
 見出しのアイコン（`<svg>`）は出力しない。
 組み込みのテンプレートを利用者のテンプレートと同じ経路で扱うにあたり、テンプレート文字列を短く保つためで、アイコンが要る場合は CSS の `::before` で付ける。
 予定ごとにラベルの色と説明を出すようにした。
@@ -320,14 +320,14 @@ PoC は表示範囲にかかる月をすべて取っていたが、今日の 1 �
 
 月ごとの応答を transient に 5 秒保存する。
 
-- **キー**：`wp_today_schedule_<hash の MD5>_<YYYYMM>`（例：`wp_today_schedule_04c0cadd330c036972d181946e8d0e89_202609`）。hash には任意の文字が入りうるので、キーに使える長さと文字に収めるため MD5 にする。
+- **キー**：`wp_calendar_today_<hash の MD5>_<YYYYMM>`（例：`wp_calendar_today_04c0cadd330c036972d181946e8d0e89_202609`）。hash には任意の文字が入りうるので、キーに使える長さと文字に収めるため MD5 にする。
 - **保存する値**：REST の応答本文（`calendars` を含む配列）。
 - **保存しない応答**：取得に失敗した応答に加え、hash の誤り（空の `calendars`）も保存しない。カレンダーを作り直したときや hash を直したときに、すぐ反映させるためである。
 
 予定を登録してからバッジに反映されるまで、最大 5 秒かかる。
 すぐに反映させたいときは、`wp transient delete` で消す。
 
-PoC からの変更点は、キーの接頭辞をプラグイン名に合わせて `top_schedule_` から `wp_today_schedule_` に変えたことである。
+PoC からの変更点は、キーの接頭辞をプラグイン名に合わせて `top_schedule_` から `wp_calendar_today_` に変えたことである。
 
 ### 取得の失敗
 
@@ -345,12 +345,12 @@ PoC からの変更点は、キーの接頭辞をプラグイン名に合わせ�
 - **hash の未指定**：`hash` 属性が空である。
 - **hash の誤り**：REST がステータス 200 で空の `calendars` を返した。
 
-管理者向けの表示は `<div class="wp-today-schedule wp-today-schedule--notice">` の中に、原因と「管理者にだけ表示しています」の旨を出力する。
+管理者向けの表示は `<div class="wp-calendar-today wp-calendar-today--notice">` の中に、原因と「管理者にだけ表示しています」の旨を出力する。
 テンプレートの有無にかかわらず、この形で出力する。
 
 ## CSS
 
-プラグインの CSS（`assets/css/wp-today-schedule-plugin.css`）は、組み込みのテンプレートと管理者向けの表示を出力するときだけ読み込む。
+プラグインの CSS（`assets/css/wp-calendar-today-plugin.css`）は、組み込みのテンプレートと管理者向けの表示を出力するときだけ読み込む。
 利用者のテンプレートはプラグインのクラスを使わないので、読み込んでも使われないためである。
 ショートコードの展開は `wp_head` の後なので、そこで `wp_enqueue_style()` を呼ぶと、WordPress はフッターで出力する。
 

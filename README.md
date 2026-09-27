@@ -1,4 +1,4 @@
-# WP Today Schedule
+# WP Calendar Today
 
 カレンダープラグイン「[Event Calendar Maker](https://wordpress-plugin.8bit.co.jp/calendar/)」に登録した今日の予定を、トップページなどに小さなバッジで表示する WordPress プラグインです。
 
@@ -16,7 +16,7 @@
 
 ## インストール
 
-1. [Releases](https://github.com/noguchi/wp-calendar-today-plugin/releases) から `wp-today-schedule-plugin.zip` をダウンロードします。
+1. [Releases](https://github.com/noguchi/wp-calendar-today-plugin/releases) から `wp-calendar-today-plugin.zip` をダウンロードします。
 2. 管理画面の「プラグイン」>「新規プラグインを追加」>「プラグインのアップロード」で ZIP を選び、インストールします。
 3. 「有効化」を押します。
 

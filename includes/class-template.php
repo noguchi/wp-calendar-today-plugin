@@ -2,7 +2,7 @@
 /**
  * テンプレートのプレースホルダーと区間を今日の値で埋める。
  *
- * @package WP_Today_Schedule
+ * @package WP_Calendar_Today
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -10,12 +10,12 @@ defined( 'ABSPATH' ) || exit;
 /**
  * テンプレートエンジン。WordPress に依存するのはエスケープ関数だけにする。
  */
-class WP_Today_Schedule_Template {
+class WP_Calendar_Today_Template {
 
 	/**
 	 * 組み込みのテンプレートの中身（外枠を除く）。
 	 */
-	const BUILTIN_BODY = '<time class="wp-today-schedule__date" datetime="{date}">{month}/{day}<span class="wp-today-schedule__dow">（{weekday}{holiday}・祝{/holiday}）</span></time>{has_events}<ul class="wp-today-schedule__events">{events}<li class="wp-today-schedule__event"><span class="wp-today-schedule__label wp-today-schedule__label--{event_color}">{event_name}</span><span class="wp-today-schedule__desc">{event_description}</span></li>{/events}</ul>{/has_events}{more}<span class="wp-today-schedule__more">ほか {more_count} 件</span>{/more}';
+	const BUILTIN_BODY = '<time class="wp-calendar-today__date" datetime="{date}">{month}/{day}<span class="wp-calendar-today__dow">（{weekday}{holiday}・祝{/holiday}）</span></time>{has_events}<ul class="wp-calendar-today__events">{events}<li class="wp-calendar-today__event"><span class="wp-calendar-today__label wp-calendar-today__label--{event_color}">{event_name}</span><span class="wp-calendar-today__desc">{event_description}</span></li>{/events}</ul>{/has_events}{more}<span class="wp-calendar-today__more">ほか {more_count} 件</span>{/more}';
 
 	/**
 	 * 組み込みのテンプレートを返す。link が空なら外枠を div にする。
@@ -25,9 +25,9 @@ class WP_Today_Schedule_Template {
 	 */
 	public static function builtin( string $link ): string {
 		if ( '' === $link ) {
-			return '<div class="wp-today-schedule"><div class="wp-today-schedule__badge">' . self::BUILTIN_BODY . '</div></div>';
+			return '<div class="wp-calendar-today"><div class="wp-calendar-today__badge">' . self::BUILTIN_BODY . '</div></div>';
 		}
-		return '<div class="wp-today-schedule"><a class="wp-today-schedule__badge" href="' . esc_url( $link ) . '">' . self::BUILTIN_BODY . '</a></div>';
+		return '<div class="wp-calendar-today"><a class="wp-calendar-today__badge" href="' . esc_url( $link ) . '">' . self::BUILTIN_BODY . '</a></div>';
 	}
 
 	/**

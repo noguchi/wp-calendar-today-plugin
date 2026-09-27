@@ -2,7 +2,7 @@
 /**
  * カレンダープラグインの REST から今日の予定を取る。
  *
- * @package WP_Today_Schedule
+ * @package WP_Calendar_Today
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -10,9 +10,9 @@ defined( 'ABSPATH' ) || exit;
 /**
  * 今月分を REST で取って transient に保存し、今日の要素だけを返す。
  */
-class WP_Today_Schedule_Calendar_Client {
+class WP_Calendar_Today_Calendar_Client {
 
-	const TRANSIENT_PREFIX = 'wp_today_schedule_';
+	const TRANSIENT_PREFIX = 'wp_calendar_today_';
 	const CACHE_TTL        = 5;
 	const ROUTE            = '/8bit-limited-calendars/v1/calendar';
 
@@ -88,7 +88,7 @@ class WP_Today_Schedule_Calendar_Client {
 		}
 
 		$failed = static function ( string $reason ): WP_Error {
-			error_log( 'wp-today-schedule-plugin: ' . $reason ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- 取得の失敗を記録する。
+			error_log( 'wp-calendar-today-plugin: ' . $reason ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- 取得の失敗を記録する。
 			return new WP_Error( 'fetch_failed', $reason );
 		};
 		try {

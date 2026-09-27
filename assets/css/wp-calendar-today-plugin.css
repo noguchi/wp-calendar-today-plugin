@@ -1,13 +1,13 @@
 /*
- * WP Today Schedule：組み込みのテンプレートと管理者向けの表示の CSS。
+ * WP Calendar Today：組み込みのテンプレートと管理者向けの表示の CSS。
  * 色はテーマのプリセットがあれば使い、なければ既定値にする。
  */
 
-.wp-today-schedule {
+.wp-calendar-today {
 	margin: 1em 0;
 }
 
-.wp-today-schedule__badge {
+.wp-calendar-today__badge {
 	display: inline-flex;
 	flex-direction: column;
 	gap: 0.35em;
@@ -20,28 +20,28 @@
 	text-decoration: none;
 }
 
-a.wp-today-schedule__badge:hover,
-a.wp-today-schedule__badge:focus-visible {
+a.wp-calendar-today__badge:hover,
+a.wp-calendar-today__badge:focus-visible {
 	background: rgba(0, 0, 0, 0.05);
 }
 
-a.wp-today-schedule__badge:focus-visible {
+a.wp-calendar-today__badge:focus-visible {
 	outline: 2px solid currentColor;
 	outline-offset: 2px;
 }
 
-.wp-today-schedule__date {
+.wp-calendar-today__date {
 	font-size: 1.5em;
 	font-weight: 600;
 	font-variant-numeric: tabular-nums;
 }
 
-.wp-today-schedule__dow {
+.wp-calendar-today__dow {
 	font-size: 0.667em;
 	font-weight: normal;
 }
 
-.wp-today-schedule__events {
+.wp-calendar-today__events {
 	list-style: none;
 	margin: 0.25em 0 0;
 	padding: 0;
@@ -50,14 +50,14 @@ a.wp-today-schedule__badge:focus-visible {
 	gap: 0.35em;
 }
 
-.wp-today-schedule__event {
+.wp-calendar-today__event {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: baseline;
 	gap: 0.5em;
 }
 
-.wp-today-schedule__label {
+.wp-calendar-today__label {
 	display: inline-block;
 	padding: 0.15em 0.6em;
 	border: 1px solid #8a8a8a;
@@ -70,24 +70,24 @@ a.wp-today-schedule__badge:focus-visible {
 	white-space: nowrap;
 }
 
-.wp-today-schedule__label--red { border-color: #e26b6b; background: #ffebee; }
-.wp-today-schedule__label--blue { border-color: #4cb0de; background: #e3f2fd; }
-.wp-today-schedule__label--green { border-color: #61cb82; background: #e8f5e9; }
+.wp-calendar-today__label--red { border-color: #e26b6b; background: #ffebee; }
+.wp-calendar-today__label--blue { border-color: #4cb0de; background: #e3f2fd; }
+.wp-calendar-today__label--green { border-color: #61cb82; background: #e8f5e9; }
 
-.wp-today-schedule__desc { font-size: 0.9em; }
-.wp-today-schedule__desc:empty { display: none; }
+.wp-calendar-today__desc { font-size: 0.9em; }
+.wp-calendar-today__desc:empty { display: none; }
 
-.wp-today-schedule__more {
+.wp-calendar-today__more {
 	font-size: 0.8em;
 }
 
-.wp-today-schedule--notice {
+.wp-calendar-today--notice {
 	padding: 0.75em 1em;
 	border: 1px dashed #c00;
 	color: #900;
 	font-size: 0.9em;
 }
 
-.wp-today-schedule--notice p {
+.wp-calendar-today--notice p {
 	margin: 0;
 }
