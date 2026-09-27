@@ -3,7 +3,7 @@
  * Plugin Name:       WP Calendar Today
  * Plugin URI:        https://github.com/noguchi/wp-calendar-today-plugin
  * Description:       カレンダープラグイン「Event Calendar Maker（無料版）」に登録した今日の予定を表示するショートコード。
- * Version:           0.1.1
+ * Version:           0.1.2
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Author:            Shingo Noguchi
@@ -16,7 +16,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-const WP_CALENDAR_TODAY_VERSION = '0.1.1';
+const WP_CALENDAR_TODAY_VERSION = '0.1.2';
 
 require_once __DIR__ . '/includes/class-calendar-client.php';
 require_once __DIR__ . '/includes/class-template.php';
@@ -43,6 +43,10 @@ function wp_calendar_today_register_shortcode(): void {
 
 /**
  * [today_schedule] を展開する。
+ *
+ * 利用者が書いたテンプレートは、埋めた後の出力に必ず wp_kses_post() を通す。
+ * 区間の展開で断片がつながり、保存時の kses が調べていないタグができるためである。
+ * 投稿者（post_author）が unfiltered_html を持っていても省略しない。投稿者と本文を最後に保存した人は一致しない。
  *
  * @param array<string, string>|string $atts    ショートコードの属性.
  * @param string|null                  $content 開始タグと終了タグの間の HTML.
@@ -74,11 +78,7 @@ function wp_calendar_today_shortcode( $atts, $content = '' ): string {
 		return WP_Calendar_Today_Template::render( WP_Calendar_Today_Template::builtin( $link ), $today, $limit );
 	}
 
-	$html       = WP_Calendar_Today_Template::render( $template, $today, $limit );
-	$post       = get_post();
-	$author     = $post ? (int) $post->post_author : 0;
-	$unfiltered = $author > 0 && user_can( $author, 'unfiltered_html' );
-	return $unfiltered ? $html : wp_kses_post( $html );
+	return wp_kses_post( WP_Calendar_Today_Template::render( $template, $today, $limit ) );
 }
 
 /**
