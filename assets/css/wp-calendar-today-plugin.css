@@ -41,20 +41,19 @@ a.wp-calendar-today__badge:focus-visible {
 	font-weight: normal;
 }
 
+/* ラベルと説明を 2 列のグリッドに並べ、予定が複数あっても説明の開始位置を揃える。 */
 .wp-calendar-today__events {
 	list-style: none;
 	margin: 0.25em 0 0;
 	padding: 0;
-	display: flex;
-	flex-direction: column;
-	gap: 0.35em;
+	display: grid;
+	grid-template-columns: max-content minmax(0, 1fr);
+	align-items: baseline;
+	gap: 0.35em 0.5em;
 }
 
 .wp-calendar-today__event {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: baseline;
-	gap: 0.5em;
+	display: contents;
 }
 
 .wp-calendar-today__label {
@@ -75,7 +74,6 @@ a.wp-calendar-today__badge:focus-visible {
 .wp-calendar-today__label--green { border-color: #61cb82; background: #e8f5e9; }
 
 .wp-calendar-today__desc { font-size: 0.9em; }
-.wp-calendar-today__desc:empty { display: none; }
 
 .wp-calendar-today__more {
 	font-size: 0.8em;

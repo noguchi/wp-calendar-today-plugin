@@ -3,7 +3,7 @@
  * Plugin Name:       WP Calendar Today
  * Plugin URI:        https://github.com/noguchi/wp-calendar-today-plugin
  * Description:       カレンダープラグイン「Event Calendar Maker（無料版）」に登録した今日の予定を表示するショートコード。
- * Version:           0.1.2
+ * Version:           0.1.3
  * Requires at least: 6.5
  * Requires PHP:      8.1
  * Author:            Shingo Noguchi
@@ -16,7 +16,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-const WP_CALENDAR_TODAY_VERSION = '0.1.2';
+const WP_CALENDAR_TODAY_VERSION = '0.1.3';
 
 require_once __DIR__ . '/includes/class-calendar-client.php';
 require_once __DIR__ . '/includes/class-template.php';

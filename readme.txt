@@ -4,7 +4,7 @@ Tags: calendar, schedule, shortcode, today
 Requires at least: 6.5
 Tested up to: 6.8
 Requires PHP: 8.1
-Stable tag: 0.1.2
+Stable tag: 0.1.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -66,6 +66,9 @@ Event Calendar Maker には時刻の項目がありません。
 2. バッジを押すと移る、Event Calendar Maker の月間カレンダー。
 
 == Changelog ==
+
+= 0.1.3 =
+* 組み込みのバッジで、予定のラベルと説明を 2 列のグリッドに並べ、予定が複数あっても説明の開始位置が揃うようにした。
 
 = 0.1.2 =
 * セキュリティ修正：利用者が書いたテンプレートの展開後の出力に、投稿者の権限にかかわらず必ず wp_kses_post() を通すようにした。投稿者が unfiltered_html を持つ投稿では、保存時の kses を通るテンプレートから区間の展開でイベント属性を持つタグができ、出力に残っていた。
